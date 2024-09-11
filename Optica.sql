@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-07-2024 a las 23:01:39
+-- Tiempo de generación: 11-09-2024 a las 19:01:32
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -29,27 +29,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Clientes` (
   `id` int(11) UNSIGNED NOT NULL,
-  `Nombre` varchar(30) NOT NULL,
-  `Apellido1` varchar(30) NOT NULL,
-  `Apellido2` varchar(30) NOT NULL,
-  `Calle` varchar(75) NOT NULL,
-  `Numero` varchar(10) NOT NULL,
-  `Piso` varchar(10) NOT NULL,
-  `Puerta` varchar(10) NOT NULL,
-  `Ciudad` varchar(50) NOT NULL,
-  `Codigo_postal` varchar(30) NOT NULL,
-  `Pais` varchar(30) NOT NULL,
-  `Telefono` varchar(20) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `apellido_1` varchar(30) NOT NULL,
+  `apellido_2` varchar(30) NOT NULL,
+  `calle` varchar(75) NOT NULL,
+  `numero` varchar(5) NOT NULL,
+  `piso` varchar(5) NOT NULL,
+  `puerta` varchar(2) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `codigo_postal` varchar(10) NOT NULL,
+  `pais` varchar(30) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
   `email` varchar(60) NOT NULL,
-  `Fecha_registro` date NOT NULL,
-  `Cliente_amigo` int(11) DEFAULT NULL
+  `fecha_registro` date NOT NULL,
+  `cliente_amigo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de clientes';
 
 --
 -- Volcado de datos para la tabla `Clientes`
 --
 
-INSERT INTO `Clientes` (`id`, `Nombre`, `Apellido1`, `Apellido2`, `Calle`, `Numero`, `Piso`, `Puerta`, `Ciudad`, `Codigo_postal`, `Pais`, `Telefono`, `email`, `Fecha_registro`, `Cliente_amigo`) VALUES
+INSERT INTO `Clientes` (`id`, `nombre`, `apellido_1`, `apellido_2`, `calle`, `numero`, `piso`, `puerta`, `ciudad`, `codigo_postal`, `pais`, `telefono`, `email`, `fecha_registro`, `cliente_amigo`) VALUES
 (1, 'Luis', 'Soto', 'Mayor', 'Pedroche', '21', '4', '3', 'Barcelona', '08029', 'España', '648456222', 'luis.pedroche@jmail.can', '2009-02-02', NULL),
 (2, 'Petra', 'Mon', 'Tana', 'Del viento', '66', '1', '3', 'Vilafranca', '08720', 'España', '648456132', 'petra.montana@jmail.can', '2015-01-02', NULL),
 (3, 'Javier', 'Nes', 'Mola', 'Santa Cruz', '1', 'Bajos', '3', 'Córdoba', '14009', 'España', '647776132', 'viernes.fiesta@jmail.can', '2021-03-06', NULL),
@@ -65,20 +65,20 @@ INSERT INTO `Clientes` (`id`, `Nombre`, `Apellido1`, `Apellido2`, `Calle`, `Nume
 CREATE TABLE `Gafas` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_marca` int(11) UNSIGNED NOT NULL,
-  `Grado_izq` decimal(10,0) NOT NULL,
-  `Grado_der` decimal(10,0) NOT NULL,
-  `Tipo_Montura` enum('Flotante','Pasta','Metálica','') NOT NULL,
-  `Color_Montura` varchar(30) NOT NULL,
-  `Color_Vid_izq` varchar(30) NOT NULL,
-  `Color_Vid_der` varchar(30) NOT NULL,
-  `Precio` decimal(10,2) NOT NULL
+  `grado_izq` decimal(2,0) NOT NULL,
+  `grado_der` decimal(2,0) NOT NULL,
+  `tipo_montura` enum('Flotante','Pasta','Metálica','') NOT NULL,
+  `color_montura` varchar(30) NOT NULL,
+  `color_vid_izq` varchar(30) NOT NULL,
+  `color_vid_der` varchar(30) NOT NULL,
+  `precio` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Info de las gafas';
 
 --
 -- Volcado de datos para la tabla `Gafas`
 --
 
-INSERT INTO `Gafas` (`id`, `id_marca`, `Grado_izq`, `Grado_der`, `Tipo_Montura`, `Color_Montura`, `Color_Vid_izq`, `Color_Vid_der`, `Precio`) VALUES
+INSERT INTO `Gafas` (`id`, `id_marca`, `grado_izq`, `grado_der`, `tipo_montura`, `color_montura`, `color_vid_izq`, `color_vid_der`, `precio`) VALUES
 (1, 1, 2, 3, 'Flotante', 'Verde', 'Oliva', 'Oliva', 148.00),
 (2, 1, 2, 3, 'Metálica', 'Verde', 'Gris', 'Gris', 150.24),
 (3, 1, 1, 2, 'Metálica', 'Azul', 'Amarillo', 'Amarillo', 220.18),
@@ -94,7 +94,7 @@ INSERT INTO `Gafas` (`id`, `id_marca`, `Grado_izq`, `Grado_der`, `Tipo_Montura`,
 
 CREATE TABLE `Marcas` (
   `id` int(11) UNSIGNED NOT NULL,
-  `Nombre` varchar(50) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
   `id_proveedor` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -102,7 +102,7 @@ CREATE TABLE `Marcas` (
 -- Volcado de datos para la tabla `Marcas`
 --
 
-INSERT INTO `Marcas` (`id`, `Nombre`, `id_proveedor`) VALUES
+INSERT INTO `Marcas` (`id`, `nombre`, `id_proveedor`) VALUES
 (1, 'Olekey', 3),
 (2, 'Pay&Run', 5),
 (3, 'Doir', 5),
@@ -117,24 +117,24 @@ INSERT INTO `Marcas` (`id`, `Nombre`, `id_proveedor`) VALUES
 
 CREATE TABLE `Proveedores` (
   `id` int(11) UNSIGNED NOT NULL,
-  `Nombre` varchar(50) NOT NULL,
-  `Calle` varchar(75) NOT NULL,
-  `Número` varchar(10) NOT NULL,
-  `Piso` varchar(10) NOT NULL,
-  `Puerta` varchar(10) NOT NULL,
-  `Ciudad` varchar(50) NOT NULL,
-  `Código_Postal` varchar(30) NOT NULL,
-  `Pais` varchar(50) NOT NULL,
-  `Telefono` varchar(30) NOT NULL,
-  `Fax` varchar(30) NOT NULL,
-  `NIF` varchar(20) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `calle` varchar(75) NOT NULL,
+  `número` varchar(5) NOT NULL,
+  `piso` varchar(5) NOT NULL,
+  `puerta` varchar(2) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `codigo_postal` varchar(30) NOT NULL,
+  `pais` varchar(50) NOT NULL,
+  `telefono` varchar(30) NOT NULL,
+  `fax` varchar(30) NOT NULL,
+  `nif` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de proveedores';
 
 --
 -- Volcado de datos para la tabla `Proveedores`
 --
 
-INSERT INTO `Proveedores` (`id`, `Nombre`, `Calle`, `Número`, `Piso`, `Puerta`, `Ciudad`, `Código_Postal`, `Pais`, `Telefono`, `Fax`, `NIF`) VALUES
+INSERT INTO `Proveedores` (`id`, `nombre`, `calle`, `número`, `piso`, `puerta`, `ciudad`, `codigo_postal`, `pais`, `telefono`, `fax`, `nif`) VALUES
 (1, 'Distriglass', 'De los morteros', '44', '', '', 'Valladolid', '47001', 'España', '+34-648456986', '+34-648456987', 'A56739965'),
 (2, 'Cristalglass', 'Ampurias', '95', '3', '', 'Girona', '17005', 'España', '+34-648456444', '+34-648456445', 'A56739392'),
 (3, 'Notevi', 'Pasaje de los corderos', '2', '', '', 'Huelva', '21005', 'España', '+34-648412345', '+34-648412346', 'B45634492'),
@@ -150,16 +150,16 @@ INSERT INTO `Proveedores` (`id`, `Nombre`, `Calle`, `Número`, `Piso`, `Puerta`,
 
 CREATE TABLE `Vendedores` (
   `id` int(11) UNSIGNED NOT NULL,
-  `Nombre` varchar(30) NOT NULL,
-  `Apellido1` varchar(30) NOT NULL,
-  `Apellido2` varchar(30) NOT NULL
+  `nombre` varchar(30) NOT NULL,
+  `apellido_1` varchar(30) NOT NULL,
+  `apellido_2` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Vendedores`
 --
 
-INSERT INTO `Vendedores` (`id`, `Nombre`, `Apellido1`, `Apellido2`) VALUES
+INSERT INTO `Vendedores` (`id`, `nombre`, `apellido_1`, `apellido_2`) VALUES
 (1, 'Joana', 'Lacuesta', 'Sube'),
 (2, 'Pedro', 'Cansado', 'Suda'),
 (3, 'Aitor', 'Tilla', 'Buena'),
@@ -176,9 +176,9 @@ INSERT INTO `Vendedores` (`id`, `Nombre`, `Apellido1`, `Apellido2`) VALUES
 CREATE TABLE `Ventas` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_cliente` int(11) UNSIGNED NOT NULL,
-  `Fecha` date NOT NULL,
+  `fecha` date NOT NULL,
   `id_gafas` int(11) UNSIGNED NOT NULL,
-  `Cantidad` int(11) UNSIGNED NOT NULL,
+  `cantidad` int(3) UNSIGNED NOT NULL,
   `id_vendedor` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -186,11 +186,11 @@ CREATE TABLE `Ventas` (
 -- Volcado de datos para la tabla `Ventas`
 --
 
-INSERT INTO `Ventas` (`id`, `id_cliente`, `Fecha`, `id_gafas`, `Cantidad`, `id_vendedor`) VALUES
+INSERT INTO `Ventas` (`id`, `id_cliente`, `fecha`, `id_gafas`, `cantidad`, `id_vendedor`) VALUES
 (1, 1, '2023-07-04', 2, 1, 3),
 (2, 1, '2023-06-09', 4, 2, 2),
 (3, 2, '2023-12-09', 3, 5, 1),
-(4, 1, '2023-01-24', 4, 3, 2),
+(4, 2, '2023-01-24', 3, 3, 2),
 (5, 3, '2024-07-09', 6, 5, 5),
 (6, 1, '2023-10-12', 4, 2, 2),
 (7, 1, '2024-01-09', 1, 1, 1),
@@ -210,7 +210,7 @@ INSERT INTO `Ventas` (`id`, `id_cliente`, `Fecha`, `id_gafas`, `Cantidad`, `id_v
 --
 ALTER TABLE `Clientes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Cliente_amigo` (`Cliente_amigo`);
+  ADD KEY `Cliente_amigo` (`cliente_amigo`);
 
 --
 -- Indices de la tabla `Gafas`
