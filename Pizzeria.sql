@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-09-2024 a las 19:08:00
+-- Tiempo de generación: 11-09-2024 a las 20:16:14
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -145,6 +145,7 @@ INSERT INTO `empleados` (`id`, `nombre`, `apellido1`, `apellido2`, `nif`, `telef
 
 CREATE TABLE `pedidos` (
   `id` int(11) UNSIGNED NOT NULL,
+  `id_vendedor` int(11) UNSIGNED NOT NULL,
   `id_cliente` int(11) UNSIGNED NOT NULL,
   `fecha_hora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -153,12 +154,12 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `id_cliente`, `fecha_hora`) VALUES
-(1, 7, '2024-07-01 22:49:25'),
-(2, 4, '2024-06-11 00:13:34'),
-(3, 4, '2024-07-23 00:13:34'),
-(4, 8, '2024-07-22 14:07:16'),
-(5, 4, '2024-08-13 15:39:31');
+INSERT INTO `pedidos` (`id`, `id_vendedor`, `id_cliente`, `fecha_hora`) VALUES
+(1, 2, 7, '2024-07-01 22:49:25'),
+(2, 1, 4, '2024-06-11 00:13:34'),
+(3, 2, 4, '2024-07-23 00:13:34'),
+(4, 5, 8, '2024-07-22 14:07:16'),
+(5, 5, 4, '2024-08-13 15:39:31');
 
 -- --------------------------------------------------------
 
@@ -294,7 +295,8 @@ ALTER TABLE `empleados`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cliente` (`id_cliente`);
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_vendedor` (`id_vendedor`);
 
 --
 -- Indices de la tabla `productos`
@@ -377,7 +379,8 @@ ALTER TABLE `empleados`
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`id_vendedor`) REFERENCES `empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `productos`
