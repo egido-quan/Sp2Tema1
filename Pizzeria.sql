@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-09-2024 a las 20:16:14
+-- Tiempo de generación: 13-09-2024 a las 00:50:26
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -147,6 +147,7 @@ CREATE TABLE `pedidos` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_vendedor` int(11) UNSIGNED NOT NULL,
   `id_cliente` int(11) UNSIGNED NOT NULL,
+  `id_tienda` int(11) UNSIGNED NOT NULL,
   `fecha_hora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -154,12 +155,12 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `id_vendedor`, `id_cliente`, `fecha_hora`) VALUES
-(1, 2, 7, '2024-07-01 22:49:25'),
-(2, 1, 4, '2024-06-11 00:13:34'),
-(3, 2, 4, '2024-07-23 00:13:34'),
-(4, 5, 8, '2024-07-22 14:07:16'),
-(5, 5, 4, '2024-08-13 15:39:31');
+INSERT INTO `pedidos` (`id`, `id_vendedor`, `id_cliente`, `id_tienda`, `fecha_hora`) VALUES
+(1, 2, 7, 1, '2024-07-01 22:49:25'),
+(2, 1, 4, 1, '2024-06-11 00:13:34'),
+(3, 2, 4, 1, '2024-07-23 00:13:34'),
+(4, 5, 8, 2, '2024-07-22 14:07:16'),
+(5, 5, 4, 2, '2024-08-13 15:39:31');
 
 -- --------------------------------------------------------
 
@@ -296,7 +297,8 @@ ALTER TABLE `empleados`
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_cliente` (`id_cliente`),
-  ADD KEY `id_vendedor` (`id_vendedor`);
+  ADD KEY `id_vendedor` (`id_vendedor`),
+  ADD KEY `id_tienda` (`id_tienda`);
 
 --
 -- Indices de la tabla `productos`
@@ -380,7 +382,8 @@ ALTER TABLE `empleados`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`id_vendedor`) REFERENCES `empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`id_vendedor`) REFERENCES `empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedidos_ibfk_3` FOREIGN KEY (`id_tienda`) REFERENCES `tiendas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `productos`

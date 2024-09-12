@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-09-2024 a las 19:01:32
+-- Tiempo de generación: 13-09-2024 a las 01:09:12
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -42,7 +42,7 @@ CREATE TABLE `Clientes` (
   `telefono` varchar(20) NOT NULL,
   `email` varchar(60) NOT NULL,
   `fecha_registro` date NOT NULL,
-  `cliente_amigo` int(11) DEFAULT NULL
+  `cliente_amigo` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de clientes';
 
 --
@@ -54,7 +54,7 @@ INSERT INTO `Clientes` (`id`, `nombre`, `apellido_1`, `apellido_2`, `calle`, `nu
 (2, 'Petra', 'Mon', 'Tana', 'Del viento', '66', '1', '3', 'Vilafranca', '08720', 'España', '648456132', 'petra.montana@jmail.can', '2015-01-02', NULL),
 (3, 'Javier', 'Nes', 'Mola', 'Santa Cruz', '1', 'Bajos', '3', 'Córdoba', '14009', 'España', '647776132', 'viernes.fiesta@jmail.can', '2021-03-06', NULL),
 (4, 'Melchor', 'Balta', 'Sar', 'Mirra', '12', '1', '1', 'Sitges', '08870', 'España', '634556132', 'reyesmagos@jmail.can', '2019-06-02', NULL),
-(5, 'Jesús', 'To', 'Madao', 'Tranquilidad', '13', 'Ático', '3', 'murcia', '30005', 'España', '647771982', 'jesus.madaoa@jmail.can', '2023-07-06', NULL);
+(5, 'Jesús', 'To', 'Madao', 'Tranquilidad', '13', 'Ático', '3', 'murcia', '30005', 'España', '647771982', 'jesus.madaoa@jmail.can', '2023-07-06', 1);
 
 -- --------------------------------------------------------
 
@@ -290,6 +290,12 @@ ALTER TABLE `Ventas`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `Clientes`
+--
+ALTER TABLE `Clientes`
+  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`cliente_amigo`) REFERENCES `Clientes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Gafas`
